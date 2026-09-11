@@ -3,13 +3,11 @@
 Preenchimento manual. Entregar **somente** ao ciclo comparativo que usa
 este projeto — nunca ao outro ciclo, nunca a credencial de `dev`.
 
-- **Project ref:**
-- **URL base das Edge Functions:** `https://<project-ref>.supabase.co/functions/v1`
-- **Anon key:**
-- **Connection string (Session pooler)** — necessária só se o ciclo for
-  rodar migrações/scripts direto contra o banco; se o ciclo só consome a
-  API, pode deixar em branco:
-  `postgresql://postgres.<project-ref>:<senha>@aws-0-<região>.pooler.supabase.com:5432/postgres`
+- **Project ref:** fgzqqkwxwfxlxbdktwzo
+- **URL base das Edge Functions:** `https://fgzqqkwxwfxlxbdktwzo.supabase.co/functions/v1`
+- **Anon key:** eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnenFxa3d4d2Z4bHhiZGt0d3pvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyOTI2OTAsImV4cCI6MjEwMzg2ODY5MH0.uWGUWukzmTY-p6kC202WXKFB-Ux2wmWCpreNUmSjN38
+- **Connection string** — `postgresql://postgres:Y!ie8Av3ec@3SM7@db.fgzqqkwxwfxlxbdktwzo.supabase.co:5432/postgres`
+- **Session pooler** — `postgresql://postgres.fgzqqkwxwfxlxbdktwzo:Y!ie8Av3ec%403SM7@aws-0-sa-east-1.pooler.supabase.com:5432/postgres`
 
 ## Observações
 
