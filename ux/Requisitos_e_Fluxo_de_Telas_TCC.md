@@ -244,7 +244,7 @@ flowchart TD
     subgraph T3["Tela 3 — Menu lateral"]
         direction TB
         E10["GET /chat/sessions"]
-        E10b["Botão 'Novo Chat' — pendência 10/09/2026, ver §13.1; leva a T1 vazia, sustentado por E04"]
+        E10b["Botão 'Novo Chat' — adicionado 11/09/2026, ver §13.1; leva a T1 vazia, sustentado por E04"]
     end
  
     subgraph T4["Tela 4 — Meus registros · RF05, RF06, RF07"]
@@ -407,9 +407,9 @@ posterior, acidental ou não:
 | Campo | Valor |
 |---|---|
 | Arquivo | `ux/Cerne - Prototipo Final.html` |
-| SHA-256 | `fa4e0bb956ed5f9903de694559a71ad6438507955976ad8ed76e7974050e5876` |
-| Tamanho | 3.603.106 bytes |
-| Data do congelamento | 2026-09-10T22:38:11Z |
+| SHA-256 | `61032a92f082044f979cc52f65ae2d6cb461f0420f2bd9bc676f6115185d2fff` |
+| Tamanho | 3.603.870 bytes |
+| Data do congelamento | 2026-09-11T03:04:01Z |
 
 **Como reconferir:** `sha256sum "ux/Cerne - Prototipo Final.html"` deve
 reproduzir o mesmo valor acima. Se não bater, o protótipo foi alterado
@@ -417,13 +417,19 @@ depois do congelamento — parar e reportar antes de prosseguir com
 qualquer um dos dois ciclos comparativos (armadilha do apêndice do
 `big-plan.md`: nenhuma referência congelada muda depois do congelamento).
 
-### 13.1 Pendência aberta em 10/09/2026 — botão "Novo Chat"
+### 13.1 Resolvida em 11/09/2026 — botão "Novo Chat"
 
-**O hash acima está prestes a ficar obsoleto por decisão de produto, não por edição acidental.** Foi decidido acrescentar à Tela 3 — Menu Lateral (ver Seção 5/7) um botão explícito **"Novo Chat"** — hoje o fluxo não tem nenhum meio explícito de iniciar um novo assunto de conversa, só a criação implícita de sessão na 1ª mensagem (RF04). Detalhe completo e justificativa em `Contexto Geral.md` Seção 2.1.
+Nova versão do protótipo recebida (commit `4aec9e8`), com o botão
+**"Novo Chat"** acrescentado à Tela 3 — Menu Lateral, conforme decidido
+em `Contexto Geral.md` Seção 2.1. Confirmado por comparação direta contra
+a versão anterior (commit `38cd6eb`): o texto "Novo Chat" não existia
+nela e aparece 1 vez na nova. SHA-256/tamanho/data acima já refletem esta
+versão — este é o hash congelado vigente a partir de agora.
 
-- A mudança será aplicada no Claude Design sobre este mesmo arquivo (`ux/Cerne - Prototipo Final.html`), não numa peça nova.
-- **Nenhum endpoint muda** — `POST /chat/sessions` já suporta múltiplas sessões por usuário sem restrição.
-- Assim que a nova versão do protótipo for recebida, **este §13 precisa ser atualizado com o novo SHA-256/tamanho/data**, e o item "Protótipo congelado" do checklist final (`big-plan.md`) volta a ficar reaberto até essa atualização acontecer. Até lá, o hash registrado acima ainda descreve fielmente o arquivo atual — a inconsistência é apenas com a decisão de produto, não com o arquivo em si.
+- **Nenhum endpoint mudou** — `POST /chat/sessions` já suporta múltiplas
+  sessões por usuário sem restrição, como previsto.
+- O item "Protótipo congelado" do checklist final (`big-plan.md`) está
+  novamente fechado com este hash.
 
 ---
 
