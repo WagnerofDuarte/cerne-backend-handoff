@@ -1,0 +1,20 @@
+{
+  "_nota": "Textos literais do roteiro de validação (T-060, Fase 6) — parte do GATE-09, mesmo espírito de fixtures/pares_semanticos.md. PENDENTE DE APROVAÇÃO DO WAGNER (rascunho do agente, ver docs/roteiro_de_validacao.md). Depois de aprovado, este comentário deve virar uma nota de data/confirmação, igual ao topo de pares_semanticos.md.",
+  "_divergencia_do_big_plan": "big-plan.md (01/09/2026, T-021/GATE-09) estimava 'os 7 textos literais do roteiro' antes de o roteiro em si existir. Desenhando o roteiro de ponta a ponta agora (T-060), só 4 textos NOVOS são realmente necessários — o resto da jornada reaproveita fixtures já aprovadas (fixtures/pares_semanticos.md para RF06, fixtures/trancricoes.md para a entrada de origem áudio, fixtures/media/*.png para OCR) ou não precisa de texto literal nenhum (dados semeados, filtros, endpoints de leitura). Divergência sinalizada, não escondida — mesmo padrão do item 'Itens em aberto' do big-plan.md.",
+  "sessao1_quinta_mensagem": {
+    "uso": "5ª mensagem do usuário na sessão de chat semeada #1 (a0000000-0000-0000-0002-000000000001, 'Conversa sobre o dia no trabalho') — dispara o gatilho message_count=5 do RF08. Precisa ser a sessão SEMEADA (id fixo), não uma sessão nova: o cache_key do insight embute sessionId literalmente (replay.ts::buildInsightEnvelope) — só é reproduzível entre execuções independentes do roteiro se o id vier do seed, nunca de um POST /chat/sessions fresco (gen_random_uuid a cada `db reset`).",
+    "texto": "Obrigado por ouvir, isso me ajudou a organizar melhor o que eu tava sentindo sobre essa semana."
+  },
+  "sessao2_mensagem_1": {
+    "uso": "1ª mensagem nova do usuário na sessão semeada #2 (a0000000-0000-0000-0002-000000000002, 'Conversa sobre o sono') — continua o histórico já semeado sobre celular atrapalhando o sono.",
+    "texto": "Vou tentar deixar o celular fora do quarto essa semana e ver se isso muda alguma coisa no meu sono."
+  },
+  "sessao2_mensagem_2": {
+    "uso": "2ª mensagem nova do usuário na mesma sessão #2, fecha o miniassunto antes do gatilho de insight por inatividade (RF08, triggerType='inactivity').",
+    "texto": "Acho que vou começar carregando o celular na sala, assim fico sem desculpa pra ficar mexendo já na cama."
+  },
+  "entrada_manual_nova": {
+    "uso": "RF01 — nova entrada manual criada pelo roteiro (Tela 2, Modal de Inserção). Deliberadamente criada só depois de todas as leituras sensíveis ao cache por id (chat/RAG, insight, busca, dashboard, exportação) — ver docs/roteiro_de_validacao.md, 'Bloco 7' e a nota de determinismo no topo desse documento.",
+    "texto": "Consegui separar um tempo hoje só pra organizar as ideias sobre a semana — nada muito importante, mas ajudou a colocar ordem na cabeça."
+  }
+}
