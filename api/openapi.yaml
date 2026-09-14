@@ -4,14 +4,34 @@
 openapi: 3.0.3
 info:
   title: Cerne Backend API
-  description: GERADO por scripts/gen-openapi.ts a partir de contracts/zod/ (T-026) — não editar à mão.
+  description: >-
+    GERADO por scripts/gen-openapi.ts a partir de contracts/zod/ (T-026) — não editar à mão.
+
+
+    **Como montar a URL real (D-01):** não existe roteador — cada operação é servida por uma Edge
+    Function própria, uma por endpoint. O `path` de cada operação abaixo é só notação REST do
+    contrato; a URL de verdade é `{FUNCTIONS_BASE_URL}/<x-cerne-function>/<parâmetros de path, na
+    mesma ordem em que aparecem no `path`, como segmentos finais>` — qualquer segmento literal do
+    `path` depois do último parâmetro (ex.: o `/retry` de
+    `/chat/sessions/{id}/messages/{userMessageId}/retry`) NÃO aparece na URL real. Cada operação
+    carrega o nome da função em `x-cerne-function`; a tabela completa caminho→função está em
+    `docs/handoff/README.md`.
   version: 1.0.0
+servers:
+  - url: "{FUNCTIONS_BASE_URL}"
+    variables:
+      FUNCTIONS_BASE_URL:
+        default: https://<project-ref>.functions.supabase.co
+        description: Base das Edge Functions do ambiente (dev/ciclo-a/ciclo-b) — o `project ref` de cada
+          ambiente está no pacote de credenciais (`credenciais/README.md`), nunca neste arquivo
+          gerado.
 paths:
   /auth/signup:
     post:
       operationId: auth.signup
       summary: Cadastro — proxy fino do GoTrue
       security: []
+      x-cerne-function: auth-signup
       requestBody:
         required: true
         content:
@@ -91,6 +111,7 @@ paths:
       operationId: auth.login
       summary: Login — proxy fino do GoTrue
       security: []
+      x-cerne-function: auth-login
       requestBody:
         required: true
         content:
@@ -170,6 +191,7 @@ paths:
       operationId: auth.refresh
       summary: Refresh de token — proxy fino do GoTrue
       security: []
+      x-cerne-function: auth-refresh
       requestBody:
         required: true
         content:
@@ -232,6 +254,7 @@ paths:
       summary: Sessão atual — único endpoint de auth com lógica própria
       security:
         - bearerAuth: []
+      x-cerne-function: auth-session
       responses:
         "200":
           description: Sucesso
@@ -282,6 +305,7 @@ paths:
       summary: Logout — proxy fino do GoTrue
       security:
         - bearerAuth: []
+      x-cerne-function: auth-logout
       responses:
         "200":
           description: Sucesso
@@ -316,6 +340,7 @@ paths:
       summary: Criar entrada (PII → gravação → embedding, com idempotência RF10)
       security:
         - bearerAuth: []
+      x-cerne-function: entries-create
       requestBody:
         required: true
         content:
@@ -467,6 +492,7 @@ paths:
       summary: Listar entradas, paginado, com tags embutidas
       security:
         - bearerAuth: []
+      x-cerne-function: entries-list
       parameters:
         - name: cursor
           in: query
@@ -633,6 +659,7 @@ paths:
       summary: Buscar uma entrada por id
       security:
         - bearerAuth: []
+      x-cerne-function: entries-get
       parameters:
         - name: id
           in: path
@@ -758,6 +785,7 @@ paths:
       summary: Busca semântica + filtros (AND), sem throttle no servidor
       security:
         - bearerAuth: []
+      x-cerne-function: entries-search
       parameters:
         - name: q
           in: query
@@ -927,6 +955,7 @@ paths:
       summary: OCR de imagem — imagem nunca é persistida
       security:
         - bearerAuth: []
+      x-cerne-function: media-ocr
       requestBody:
         required: true
         content:
@@ -984,6 +1013,7 @@ paths:
       summary: Criar sessão de chat (persona congelada do perfil)
       security:
         - bearerAuth: []
+      x-cerne-function: chat-sessions-create
       requestBody:
         required: true
         content:
@@ -1053,6 +1083,7 @@ paths:
       summary: Listar sessões de chat
       security:
         - bearerAuth: []
+      x-cerne-function: chat-sessions-list
       parameters:
         - name: cursor
           in: query
@@ -1138,6 +1169,7 @@ paths:
       summary: Listar mensagens de uma sessão, ordenadas por seq
       security:
         - bearerAuth: []
+      x-cerne-function: chat-messages-list
       parameters:
         - name: id
           in: path
@@ -1210,6 +1242,7 @@ paths:
       summary: Enviar mensagem — resposta em streaming SSE (D12)
       security:
         - bearerAuth: []
+      x-cerne-function: chat-messages-send
       parameters:
         - name: id
           in: path
@@ -1248,6 +1281,7 @@ paths:
       summary: Regenerar a última resposta — mesma impressão digital de cache (D15)
       security:
         - bearerAuth: []
+      x-cerne-function: chat-messages-retry
       parameters:
         - name: id
           in: path
@@ -1286,6 +1320,7 @@ paths:
       summary: Gerar insight — nunca erro HTTP, falha vira status='failed' (RF08)
       security:
         - bearerAuth: []
+      x-cerne-function: chat-insight-create
       parameters:
         - name: id
           in: path
@@ -1395,6 +1430,7 @@ paths:
       summary: Solicitar exportação — contagem síncrona, enfileira job
       security:
         - bearerAuth: []
+      x-cerne-function: export-summary-create
       requestBody:
         required: true
         content:
@@ -1454,6 +1490,7 @@ paths:
       summary: Status do job de exportação (dados e narrativa independentes)
       security:
         - bearerAuth: []
+      x-cerne-function: export-status-get
       parameters:
         - name: jobId
           in: path
@@ -1527,6 +1564,7 @@ paths:
       summary: Download — 302 para URL assinada, PDF com fallback para bruto
       security:
         - bearerAuth: []
+      x-cerne-function: export-download-get
       parameters:
         - name: jobId
           in: path
@@ -1557,6 +1595,7 @@ paths:
       summary: Agregado do período — sempre 200, inclusive com zero entradas
       security:
         - bearerAuth: []
+      x-cerne-function: dashboard-aggregate-get
       parameters:
         - name: period
           in: query
@@ -1663,6 +1702,7 @@ paths:
       summary: Narrativa do período — independente do agregado
       security:
         - bearerAuth: []
+      x-cerne-function: dashboard-narrative-get
       parameters:
         - name: period
           in: query
@@ -1710,6 +1750,7 @@ paths:
       summary: Atualizar nome/persona/biometria — email é rejeitado
       security:
         - bearerAuth: []
+      x-cerne-function: account-settings-update
       requestBody:
         required: true
         content:
@@ -1792,6 +1833,7 @@ paths:
       summary: Apagamento hard, em cascata, com purga do bucket exports
       security:
         - bearerAuth: []
+      x-cerne-function: account-delete
       requestBody:
         required: true
         content:

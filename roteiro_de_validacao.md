@@ -1,9 +1,10 @@
 # Roteiro de validação (T-060, Fase 6)
 
-**Status: rascunho do agente, pendente de aprovação do Wagner** — mesmo
-espírito do `GATE-09` que já aprovou `fixtures/pares_semanticos.md`. Depois
-de aprovado, esta linha deve virar uma confirmação com data, e os "textos
-literais" abaixo saem do estado de rascunho em `fixtures/textos.json`.
+**Status: Aprovado por Wagner em 10/09/2026** (mesmo espírito do `GATE-09`
+que já aprovou `fixtures/pares_semanticos.md`) — executado de verdade em
+modo `record` na Fase 7 (`T-064` passo 6) contra `ciclo-a`; corrigido D-25
+(`docs/backend/DIVERGENCIAS_E_INCONSISTENCIAS.md`), esta linha estava
+desatualizada desde a aprovação.
 
 ## Por que este documento existe
 

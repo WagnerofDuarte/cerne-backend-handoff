@@ -15,4 +15,4 @@ Fonte: `context/Contexto Geral.md` §11.7 (e equivalente no plano técnico) — 
 | Concluído, resumo falhou/pulado | concluído | falhou ou pulada | sim (sem PDF) |
 | Erro na exportação | erro | — | não |
 
-Este é o **único** mapeamento tela↔status que os documentos-fonte definem em detalhe suficiente para reproduzir sem ambiguidade — cobre só a tela de exportação (RF05). Um mapa completo de todas as telas do protótipo (RF01–RF10) depende de `Requisitos_e_Fluxo_de_Telas_TCC.md`, que não está neste repositório (ver `docs/bugs_conhecidos.md`/registro de pendências no `big-plan.md`, seção "Itens em aberto").
+Este é o **único** mapeamento tela↔status que os documentos-fonte definem em detalhe suficiente para reproduzir sem ambiguidade — cobre só a tela de exportação (RF05). Um mapa completo de todas as telas do protótipo (RF01–RF10) está em `ux/Requisitos_e_Fluxo_de_Telas_TCC.md` (recebido em 10/09/2026, ver `big-plan.md`, seção "Itens em aberto") — não transcrito aqui porque foge do escopo deste mapa (só RF05/export_jobs).
